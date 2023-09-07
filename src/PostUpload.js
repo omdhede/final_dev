@@ -4,6 +4,11 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import { Link } from "react-router-dom";
+import "./cssFiles/PostUpload.css";
+
+import cancelIcon from "./assets/UploadPageAssets/cancel_icon.png";
+import thumbnailIMG from "./assets/UploadPageAssets/thumbnail_logo.png";
+import model from "./assets/UploadPageAssets/model_logo.png";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVyUhbLUu0JZ2S5dRVWZb4_uT7dVblm9I",
@@ -17,7 +22,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const PostUpload = ({ history }) => {
+const PostUpload = () => {
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [description, setDescription] = useState("");
@@ -26,16 +31,22 @@ const PostUpload = ({ history }) => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [thumbnailURL, setThumbnailURL] = useState(null);
+
+  const [selectedThumbnailURL, setSelectedThumbnailURL] = useState(null);
+  const [selectedModelURL, setSelectedModelURL] = useState(null);
+
   const user = firebase.auth().currentUser;
 
   const handleThumbnailChange = (e) => {
     const selectedThumbnail = e.target.files[0];
     setThumbnail(selectedThumbnail);
+    setSelectedThumbnailURL(URL.createObjectURL(selectedThumbnail));
   };
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
+    setSelectedModelURL(URL.createObjectURL(selectedFile));
   };
 
   const handleUpload = async () => {
@@ -127,57 +138,154 @@ const PostUpload = ({ history }) => {
   };
 
   return (
-    <div>
-      <h2>Create a Post</h2>
-
-      <br />
-      <br />
-      <button style={{ padding: "1rem" }}>
-        <Link to={"/login"} style={{ textDecoration: "none", color: "black" }}>
-          X
-        </Link>
-      </button>
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <br />
-      <br />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleThumbnailChange}
-        required
-      />
-      <br />
-      <br />
-      <input type="file" onChange={handleFileChange} required />
-      <br />
-      <br />
-      <button onClick={handleUpload}>Upload Post</button>
-      <br />
-      <br />
-      <br />
-      {uploadStatus && <div>Progress: {uploadProgress.toFixed(1)}%</div>}
-      {uploadComplete && (
-        <div>
-          Upload completed! <br /> <Link to={'/explore'} style={{textDecoration: 'none', color: 'black'}}><h4>Check it out!!!</h4></Link>
+    <div className="wrapper">
+      <div class="nav">
+        <h3 id="logo">INNOVATE 3D</h3>
+        <div style={{ fontWeight: "400", color: "gray" }}>
+          {uploadStatus && (
+            <div style={{ color: "white" }}>
+              Upload Progress: {uploadProgress.toFixed(1)}%
+            </div>
+          )}
         </div>
-      )}
-      {thumbnailURL && (
+      </div>
+      <div class="content_container">
+        <button id="cancel_btn">
+          <Link to={"/login"}>
+            <img src={cancelIcon} />
+          </Link>
+        </button>
+
+        <div className="main_container">
+          <input
+            id="title_text"
+            type="text"
+            placeholder="A VERY LOOOOOOOOOOOOONG TITLE"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+
+          <div className="upload_section">
+            <div className="thumbnail_side">
+              <h3 class="upload_headings">THUMBNAIL</h3>
+
+              <input
+                id="thumbnail_upload"
+                type="file"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                required
+              />
+
+              {selectedThumbnailURL ? (
+                <div>
+                  <img
+                    src={selectedThumbnailURL}
+                    // className="upload_logos"
+                    alt="Thumbnail"
+                    style={{
+                      maxWidth: "300px",
+                      maxHeight: "200px",
+                      overflow: "hidden",
+                      borderRadius: "15px",
+                      paddingBottom: "15px",
+                    }}
+                  />
+                </div>
+              ) : (
+                <img
+                  className="upload_logos"
+                  src={thumbnailIMG}
+                  alt="Thumbnail Placeholder"
+                />
+              )}
+
+              <p class="upload_supply_text">
+                Drag and drop an image, or{" "}
+                <label for="thumbnail_upload">Browse</label>
+              </p>
+
+              <p class="upload_supply_text">
+                Minimum 1600px width recommended. Max 1GB each
+              </p>
+
+              <p class="upload_supply_text">High resolution 3D (obj, srt)</p>
+            </div>
+
+            <div className="model_side">
+              <h3 class="upload_headings">3D MODEL</h3>
+
+              <input
+                id="model_upload"
+                type="file"
+                onChange={handleFileChange}
+                required
+              />
+
+              {selectedModelURL ? (
+                <div>
+                  <img
+                    src={selectedModelURL}
+                    alt="Model"
+                    style={{
+                      maxWidth: "300px",
+                      maxHeight: "200px",
+                      overflow: "hidden",
+                      borderRadius: "15px",
+                      paddingBottom: "20px",
+                    }}
+                  />
+                </div>
+              ) : (
+                <img
+                  className="upload_logos"
+                  src={model}
+                  alt="Model Placeholder"
+                />
+              )}
+
+              <p class="upload_supply_text">
+                Drag and drop an image, or{" "}
+                <label for="model_upload">Browse</label>
+              </p>
+              <p class="upload_supply_text">
+                Minimum 1600px width recommended. Max 10MB each
+              </p>
+              <p class="upload_supply_text">
+                High resolution images (png, jpg, gif)
+              </p>
+            </div>
+          </div>
+
+          <input
+            id="desc_text"
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <button id="upload_btn" onClick={handleUpload}>
+          UPLOAD
+        </button>
+      </div>
+
+      <div className="nav" style={{}}>
+        {uploadComplete && (
+          <div style={{ color: "white" }}>
+            Upload completed! -
+            <Link
+              to={"/explore"}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <h4>Check it out!!!</h4>
+            </Link>
+          </div>
+        )}
+      </div>
+
+      {/* {thumbnailURL && (
         <div>
           <img
             src={thumbnailURL}
@@ -185,7 +293,7 @@ const PostUpload = ({ history }) => {
             style={{ maxWidth: "300px" }}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
