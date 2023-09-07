@@ -56,7 +56,11 @@ const Login = () => {
   const handleSharing = () => {
     navigate("/upload");
   };
-
+  
+  const handleExplore = () => {
+    navigate("/explore");
+  };
+  
   const signOut = () => {
     firebase.auth().signOut();
   };
@@ -66,7 +70,7 @@ const Login = () => {
       {user ? (
         <div>
           <p>Welcome, {user.displayName}!</p>
-          <button>Let's Go Into 3D World</button>
+          <button onClick={handleExplore}>Let's Go Into 3D World</button>
           <button onClick={handleSharing}>Share Your Creation</button>
           <button onClick={signOut}>Sign Out</button>
         </div>

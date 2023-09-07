@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+import { Link } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVyUhbLUu0JZ2S5dRVWZb4_uT7dVblm9I",
@@ -16,7 +17,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const PostUpload = () => {
+const PostUpload = ({ history }) => {
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [description, setDescription] = useState("");
@@ -24,6 +25,7 @@ const PostUpload = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadStatus, setUploadStatus] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
+  const [thumbnailURL, setThumbnailURL] = useState(null);
   const user = firebase.auth().currentUser;
 
   const handleThumbnailChange = (e) => {
@@ -66,6 +68,7 @@ const PostUpload = () => {
       async () => {
         // Thumbnail upload complete
         const thumbnailUrl = await thumbnailRef.getDownloadURL();
+        setThumbnailURL(thumbnailUrl);
 
         // Upload file
         const fileRef = firebase
@@ -89,10 +92,10 @@ const PostUpload = () => {
             // Upload description
             const descriptionRef = firebase
               .storage()
-              .ref(`${user.uid}/posts/${title}/description.txt`);
+              .ref(`${user.uid}/posts/${title}/description/description.txt`);
             const descriptionUploadTask = descriptionRef.putString(description);
             descriptionUploadTask.on(
-              "state_change",
+              "state_changed",
               () => {},
               (error) => {
                 console.error(error);
@@ -126,6 +129,14 @@ const PostUpload = () => {
   return (
     <div>
       <h2>Create a Post</h2>
+
+      <br />
+      <br />
+      <button style={{ padding: "1rem" }}>
+        <Link to={"/login"} style={{ textDecoration: "none", color: "black" }}>
+          X
+        </Link>
+      </button>
       <br />
       <br />
       <input
@@ -161,7 +172,20 @@ const PostUpload = () => {
       <br />
       <br />
       {uploadStatus && <div>Progress: {uploadProgress.toFixed(1)}%</div>}
-      {uploadComplete && <div>Upload completed!</div>}
+      {uploadComplete && (
+        <div>
+          Upload completed! <br /> <Link to={'/explore'} style={{textDecoration: 'none', color: 'black'}}><h4>Check it out!!!</h4></Link>
+        </div>
+      )}
+      {thumbnailURL && (
+        <div>
+          <img
+            src={thumbnailURL}
+            alt="Thumbnail"
+            style={{ maxWidth: "300px" }}
+          />
+        </div>
+      )}
     </div>
   );
 };

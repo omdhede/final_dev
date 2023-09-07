@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Login"
 import Register from "./Register";
 import PostUpload from "./PostUpload";
+import ExplorePage from "./ExplorePage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const App = () => {
     {
       path: "/upload",
       element: <PostUpload />,
+    },
+    {
+      path: "/explore",
+      element: <ExplorePage />,
     },
   ]);
   return (
