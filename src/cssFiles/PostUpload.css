@@ -55,9 +55,32 @@
     border-bottom-left-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     padding: 0 8.75rem;
+}
+
+#upload_progress_text{
+    font-size: 1.5rem;
+    color: #F2B500;
+    font-family: gilroyBold;
+}
+
+#upload_completed_text{
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    color: white;
+    font-family: gilroyBold;
+    gap: 1rem;
+}
+
+#redirect_btn{
+    background-color: #F7D56F;
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    color: #32323C;
 }
 
 #logo{

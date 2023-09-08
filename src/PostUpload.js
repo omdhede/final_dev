@@ -140,14 +140,25 @@ const PostUpload = () => {
   return (
     <div className="wrapper">
       <div class="nav">
-        <h3 id="logo">INNOVATE 3D</h3>
         <div style={{ fontWeight: "400", color: "gray" }}>
           {uploadStatus && (
-            <div style={{ color: "white" }}>
+            <div id="upload_progress_text">
               Upload Progress: {uploadProgress.toFixed(1)}%
             </div>
           )}
         </div>
+
+        {uploadComplete && (
+          <div id="upload_completed_text">
+            Upload completed! -
+            <Link
+              to={"/explore"}
+              style={{ textDecoration: "none" }}
+            >
+              <h4 id="redirect_btn">Check it out !</h4>
+            </Link>
+          </div>
+        )}
       </div>
       <div class="content_container">
         <button id="cancel_btn">
@@ -189,7 +200,7 @@ const PostUpload = () => {
                       maxHeight: "200px",
                       overflow: "hidden",
                       borderRadius: "15px",
-                      paddingBottom: "15px",
+                      marginBottom: "20px",
                     }}
                   />
                 </div>
@@ -233,7 +244,7 @@ const PostUpload = () => {
                       maxHeight: "200px",
                       overflow: "hidden",
                       borderRadius: "15px",
-                      paddingBottom: "20px",
+                      marginBottom: "20px",
                     }}
                   />
                 </div>
@@ -269,20 +280,6 @@ const PostUpload = () => {
         <button id="upload_btn" onClick={handleUpload}>
           UPLOAD
         </button>
-      </div>
-
-      <div className="nav" style={{}}>
-        {uploadComplete && (
-          <div style={{ color: "white" }}>
-            Upload completed! -
-            <Link
-              to={"/explore"}
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              <h4>Check it out!!!</h4>
-            </Link>
-          </div>
-        )}
       </div>
 
       {/* {thumbnailURL && (
