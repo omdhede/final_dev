@@ -191,17 +191,10 @@ const PostUpload = () => {
 
               {selectedThumbnailURL ? (
                 <div>
-                  <img
+                  <img className="upload_preview"
                     src={selectedThumbnailURL}
-                    // className="upload_logos"
                     alt="Thumbnail"
-                    style={{
-                      maxWidth: "300px",
-                      maxHeight: "200px",
-                      overflow: "hidden",
-                      borderRadius: "15px",
-                      marginBottom: "20px",
-                    }}
+                    
                   />
                 </div>
               ) : (
@@ -236,16 +229,9 @@ const PostUpload = () => {
 
               {selectedModelURL ? (
                 <div>
-                  <img
+                  <img className="upload_preview"
                     src={selectedModelURL}
                     alt="Model"
-                    style={{
-                      maxWidth: "300px",
-                      maxHeight: "200px",
-                      overflow: "hidden",
-                      borderRadius: "15px",
-                      marginBottom: "20px",
-                    }}
                   />
                 </div>
               ) : (

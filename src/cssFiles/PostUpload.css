@@ -207,6 +207,14 @@
     opacity: 0;
 }
 
+.upload_preview{
+    max-width: 18.75rem;
+    max-height: 12.5rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-bottom: 1.25rem;
+}
+
 #desc_text{
     all: initial;
     width: 85.25rem;
