@@ -138,7 +138,8 @@ const PostUpload = () => {
   };
 
   return (
-    <div className="wrapper">
+    <div className="post_wrapper">
+    
       <div class="nav">
         <div style={{ fontWeight: "400", color: "gray" }}>
           {uploadStatus && (
@@ -160,6 +161,7 @@ const PostUpload = () => {
           </div>
         )}
       </div>
+
       <div class="content_container">
         <button id="cancel_btn">
           <Link to={"/login"}>

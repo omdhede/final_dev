@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import firebase from "firebase/compat/app";
 import { useNavigate, Link } from "react-router-dom";
+import "./cssFiles/Register.css";
+
+import signUpVid from "./assets/RegisterPageAssets/bike.mp4";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVyUhbLUu0JZ2S5dRVWZb4_uT7dVblm9I",
@@ -112,65 +115,80 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            placeholder="Username"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" disabled={isButtonDisabled}>
-          {isButtonDisabled ? "Signing Up..." : "Sign Up"}
+    <div className="register_wrapper">
+
+    <video src= {signUpVid} autoPlay loop muted />
+      
+    
+
+      <div className="register_container">
+
+        <h2 id="register_heading">Register</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form id="reg_form" onSubmit={handleSubmit}>
+          <div>
+            <h4 class="top_headings">Username</h4>
+            <input className="input_fields"
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              placeholder="Username"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+          <h4 class="top_headings">Email</h4>
+            <input className="input_fields"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+          <h4 class="top_headings">Password</h4>
+            <input className="input_fields"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+          <h4 class="top_headings">Confirm Password</h4>
+            <input className="input_fields"
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button id="sign_up_btn" type="submit" disabled={isButtonDisabled}>
+            {isButtonDisabled ? "Signing Up..." : "Sign Up"}
+          </button>
+        </form>
+
+        <h4 id="login_direct_text">have an account? <Link to={'/login'} style={{textDecoration: "none", color: "#F2B500"}}>Login</Link></h4>
+
+        <div id="line_above_google_auth"></div>
+        
+        <button id="signup_with_google_btn" onClick={handleGoogleSignUp} disabled={isButtonDisabled}>
+          Sign Up with Google
         </button>
-      </form>
 
-      Do have an account? <Link to={'/login'} style={{textDecoration: "none", color: "blue"}}>Login</Link>
+      </div>
 
-      <p>Or</p>
-      <button onClick={handleGoogleSignUp} disabled={isButtonDisabled}>
-        Sign Up with Google
-      </button>
     </div>
   );
 };
