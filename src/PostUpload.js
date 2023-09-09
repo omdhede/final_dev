@@ -203,7 +203,7 @@ const PostUpload = () => {
 
               <p class="upload_supply_text">
                 Drag and drop an image, or{" "}
-                <label for="thumbnail_upload">Browse</label>
+                {/* <label for="thumbnail_upload">Browse</label> */}
               </p>
 
               <p class="upload_supply_text">

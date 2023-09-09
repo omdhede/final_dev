@@ -4,6 +4,7 @@ import Login from "./Login"
 import Register from "./Register";
 import PostUpload from "./PostUpload";
 import ExplorePage from "./ExplorePage";
+import MainScreen from "./MainScreen";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const App = () => {
     {
       path: "/explore",
       element: <ExplorePage />,
+    },
+    {
+      path: "/main/:title",
+      element: <MainScreen />,
     },
   ]);
   return (
