@@ -80,9 +80,8 @@ const Register = () => {
       });
 
       alert("Registration successful!");
-      
     } catch (error) {
-      setError('Error during registration. Please try again.');
+      setError("Error during registration. Please try again.");
       setButtonDisabled(false);
     }
     navigate("/login");
@@ -104,30 +103,26 @@ const Register = () => {
       } else {
         alert("Welcome back!");
       }
-      
     } catch (error) {
       console.error(error.message);
       setError("Google sign-up failed. Please try again.");
       setButtonDisabled(false);
     }
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <div className="register_wrapper">
-
-    <video src= {signUpVid} autoPlay loop muted />
-      
-    
+      <video src={signUpVid} autoPlay loop muted />
 
       <div className="register_container">
-
         <h2 id="register_heading">Register</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form id="reg_form" onSubmit={handleSubmit}>
           <div>
             <h4 class="register_top_headings">Username</h4>
-            <input className="register_input_fields"
+            <input
+              className="register_input_fields"
               type="text"
               id="username"
               name="username"
@@ -138,8 +133,9 @@ const Register = () => {
             />
           </div>
           <div>
-          <h4 class="register_top_headings">Email</h4>
-            <input className="register_input_fields"
+            <h4 class="register_top_headings">Email</h4>
+            <input
+              className="register_input_fields"
               type="email"
               id="email"
               name="email"
@@ -150,8 +146,9 @@ const Register = () => {
             />
           </div>
           <div>
-          <h4 class="register_top_headings">Password</h4>
-            <input className="register_input_fields"
+            <h4 class="register_top_headings">Password</h4>
+            <input
+              className="register_input_fields"
               type="password"
               id="password"
               name="password"
@@ -162,8 +159,9 @@ const Register = () => {
             />
           </div>
           <div>
-          <h4 class="register_top_headings">Confirm Password</h4>
-            <input className="register_input_fields"
+            <h4 class="register_top_headings">Confirm Password</h4>
+            <input
+              className="register_input_fields"
               type="password"
               id="confirmPassword"
               name="confirmPassword"
@@ -178,16 +176,26 @@ const Register = () => {
           </button>
         </form>
 
-        <h4 id="login_direct_text">have an account? <Link to={'/login'} style={{textDecoration: "none", color: "#F2B500"}}>Login</Link></h4>
+        <h4 id="login_direct_text">
+          have an account?{" "}
+          <Link
+            to={"/login"}
+            style={{ textDecoration: "none", color: "#F2B500" }}
+          >
+            Login
+          </Link>
+        </h4>
 
         <div id="line_above_google_auth_register"></div>
-        
-        <button id="signup_with_google_btn" onClick={handleGoogleSignUp} disabled={isButtonDisabled}>
+
+        <button
+          id="signup_with_google_btn"
+          onClick={handleGoogleSignUp}
+          disabled={isButtonDisabled}
+        >
           Sign Up with Google
         </button>
-
       </div>
-
     </div>
   );
 };

@@ -3,8 +3,17 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/storage";
-import "./cssFiles/MainScreen.css"
+import "./cssFiles/MainScreen.css";
 import * as THREE from "three";
+
+import siteLogo from "./assets/GlobalAssets/siteLogo.png";
+
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineMessage } from "react-icons/ai";
+import { FiBookmark } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+
+import waitingVid from "./assets/MainScreenAssets/waiting_vid.mp4";
 
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 
@@ -24,8 +33,6 @@ const MainScreen = () => {
   const canvasRef = useRef(null);
   const modelRef = useRef(null);
 
-  
-
   //   const user = firebase.auth().currentUser;
   //   const uid = user.uid;
 
@@ -42,7 +49,6 @@ const MainScreen = () => {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
-
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -116,10 +122,10 @@ const MainScreen = () => {
       modelRef.current = model;
       scene.add(model);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
       scene.add(ambientLight);
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
       directionalLight.position.set(0, 10, 5);
       scene.add(directionalLight);
 
@@ -136,7 +142,7 @@ const MainScreen = () => {
       requestAnimationFrame(animate);
 
       if (modelRef.current) {
-        modelRef.current.rotation.y += 0.0002;
+        modelRef.current.rotation.y += 0.0009;
       }
 
       // Check if canvasRef.current exists before updating camera and rendering
@@ -169,27 +175,66 @@ const MainScreen = () => {
   }, [data]);
 
   if (!data) {
-    return <p>Loading...</p>;
+    return <video src={waitingVid} autoPlay loop muted />;
   }
 
   return (
-    <div>
-      <p>{title}</p>
-      <p>{data?.fileUrl}</p>
-      <p>{user?.displayName}</p>
+    <div class="mainscreen_wrapper">
+      <div class="mainscreen_nav">
+        <div class="mainscreen_logo_set">
+          <img id="mainscreen_site_logo" src={siteLogo}></img>
+          <h3 id="mainscreen_logo_text">INNOVATE 3D</h3>
+        </div>
+      </div>
 
-      <p>{data?.descriptionUrl}</p>
-      <canvas ref={canvasRef} id="myThreeJsCanvas"></canvas>
-      <div>
-        <img
-          src={data?.thumbnailUrl}
-          alt="Thumbnail"
-          style={{
-            maxWidth: "400px",
-            maxHeight: "300px",
-            padding: "20px",
-          }}
-        />
+      <div class="mainscreen_content_container">
+        <div class="mainscreen_main_container">
+          <div class="mainscreen_left_section">
+            <canvas ref={canvasRef} id="myThreeJsCanvas"></canvas>
+            <div class="mainscreen_model_reaction_btns">
+              <i id="mainscreen_model_like_btn">
+                <AiOutlineHeart />
+              </i>
+              <i id="mainscreen_model_comm_btn">
+                <AiOutlineMessage />
+              </i>
+              <i id="mainscreen_model_bmk_btn">
+                <FiBookmark />
+              </i>
+            </div>
+          </div>
+
+          <div class="mainscreen_right_section">
+            <div class="mainscreen_info_container">
+              <div class="mainscreen_user_info">
+                <h3 id="mainscreen_model_title">{title}</h3>
+                <div class="mainscreen_details">
+                  <div class="mainscreen_user_profile_sec">
+                    <div id="mainscreen_profile_pic">
+                      {user?.photoURL ? (
+                        <img style={{width:"3rem", height:"3rem", borderRadius:"2rem", objectFit:"cover"}} src={user?.photoURL} />
+                      ) : (
+                        <CgProfile
+                          style={{ fontSize: "3rem", color: "white" }}
+                        />
+                      )}
+                    </div>
+
+                    <h4 id="mainscreen_user_name">{user?.displayName}</h4>
+                  </div>
+                  <button id="mainscreen_follow_btn">Follow</button>
+                </div>
+              </div>
+              <div class="mainscreen_desc_container">
+                <h3 id="mainscreen_desc_head">Description :</h3>
+
+                <div id="mainscreen_desc_text_layout">
+                  <p id="mainscreen_desc_text">{data?.descriptionUrl}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

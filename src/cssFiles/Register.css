@@ -40,8 +40,6 @@
 .register_wrapper{
     display: flex;
     position: relative;
-    /* background-attachment: fixed;
-    background-color: #0A0A14; */
     width: 100vw;
     height: 100vh;
     overflow-y: hidden;

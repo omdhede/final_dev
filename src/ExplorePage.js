@@ -4,9 +4,18 @@ import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/storage";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import "./cssFiles/ExplorePage.css";
+
+import siteLogo from "./assets/GlobalAssets/siteLogo.png";
+
+import { IoIosArrowDown } from "react-icons/io";
+import { PiBellRingingBold } from "react-icons/pi";
+import { CgProfile } from "react-icons/cg";
+
+import trial_prof_pic from "./assets/GlobalAssets/trial_prof_pic.png";
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ExplorePage = () => {
   const [user, setUser] = useState(null);
@@ -52,13 +61,13 @@ const ExplorePage = () => {
               // Extract and store the parent folder name
               const folderName = folderRef.name.split("/").pop();
               names.push(folderName);
+              console.log(folderName);
               return url;
             }
           })
         );
         setAllUrls(all);
         setParentFolderNames(names);
-        console.log(names);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -66,38 +75,132 @@ const ExplorePage = () => {
     fetchPost();
   }, [user, storage]);
 
-  
+  const navigate = useNavigate();
+  const handlePageChange = () => {
+    navigate("/upload");
+  };
+
+  const signOut = () => {
+    firebase.auth().signOut();
+
+    navigate("/login");
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
+
   return (
-    <div>
-      {allUrls.map((url, index) => {
-        const folderName = parentFolderNames[index];
-        return (
-          <div key={url}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Link to={`/main/${folderName}`}>
-                <img
-                  src={url}
-                  alt="Thumbnail"
-                  style={{
-                    maxWidth: "400px",
-                    maxHeight: "300px",
-                    padding: "20px",
-                  }} // Add onClick handler
-                />
-                <p>{folderName}</p>
-              </Link>
+    <div class="explore_wrapper">
+      <div class="explore_nav">
+        <div class="explore_left_options">
+          <img id="explore_site_logo" src={siteLogo}></img>
+          <h3 id="explore_logo_text">INNOVATE 3D</h3>
+        </div>
+
+        <div class="explore_right_options">
+          <div class="explore_choose_btns">
+            <button id="blog_btn">Blogs</button>
+            <button id="learn_btn">Learn Design</button>
+            <div class="dropdown">
+              <button id="categories_btn" >
+                Categories <IoIosArrowDown />
+              </button>
+              <div class="dropdown-container">
+                <a class="dropdown-option" href="#">
+                  Option 1
+                </a>
+                <a class="dropdown-option" href="#">
+                  Option 2
+                </a>
+                <a class="dropdown-option" href="#">
+                  Option 3
+                </a>
+                <a class="dropdown-option" href="#">
+                  Option 4
+                </a>
+                <a class="dropdown-option" href="#">
+                  Option 5
+                </a>
+                <a class="dropdown-option" href="#">
+                  Option 6
+                </a>
+              </div>
             </div>
           </div>
-        );
-      })}
-      {selectedFileUrl && (
-        <div>
-          <p>Selected File:</p>
-          <a href={selectedFileUrl} target="_blank" rel="noopener noreferrer">
-            View File
-          </a>
+
+          <button id="explore_share_btn" onClick={handlePageChange}>
+            Share Work
+          </button>
+
+          <button id="explore_logout_btn" onClick={signOut}>
+            Log out
+          </button>
+
+          <div class="explore_choose_icons">
+            <button id="explore_bell_icon">
+              <PiBellRingingBold />
+            </button>
+            <button id="explore_profile_icon" onClick={handleProfileClick}>
+              {user?.photoURL ? (
+                <img
+                  src={user?.photoURL}
+                  style={{
+                    width: "2.5rem",
+                    borderRadius: "2rem",
+                    height: "2.5rem",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <CgProfile />
+              )}
+            </button>
+          </div>
         </div>
-      )}
+      </div>
+
+      <div className="explore_section">
+        <div className="explore_model_showcase">
+          {allUrls.map((url, index) => {
+            const folderName = parentFolderNames[index];
+            return (
+              <div key={url}>
+                <div className="explore_model_card">
+                  <Link to={`/main/${folderName}`}>
+                    <img
+                      id="thumbnail_img"
+                      src={url}
+                      alt="Thumbnail"
+                      // Add onClick handler
+                    />
+
+                    <div>
+                      <img
+                        src={user?.photoURL}
+                        id="explore_model_profile"
+                      ></img>
+                      <p id="explore_model_title">{folderName}</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+          {selectedFileUrl && (
+            <div>
+              <p>Selected File:</p>
+              <a
+                href={selectedFileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View File
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -9,6 +9,8 @@ import "./cssFiles/PostUpload.css";
 import cancelIcon from "./assets/UploadPageAssets/cancel_icon.png";
 import thumbnailIMG from "./assets/UploadPageAssets/thumbnail_logo.png";
 import model from "./assets/UploadPageAssets/model_logo.png";
+import siteLogo from "./assets/GlobalAssets/siteLogo.png";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVyUhbLUu0JZ2S5dRVWZb4_uT7dVblm9I",
@@ -137,166 +139,6 @@ const PostUpload = () => {
     );
   };
 
-  // return (
-  //   <div className="wrapper">
-  //     <div class="nav">
-  //       <h3 id="logo">INNOVATE 3D</h3>
-  //       <div style={{ fontWeight: "400", color: "gray" }}>
-  //         {uploadStatus && (
-  //           <div style={{ color: "white" }}>
-  //             Upload Progress: {uploadProgress.toFixed(1)}%
-  //           </div>
-  //         )}
-  //       </div>
-  //     </div>
-  //     <div class="content_container">
-  //       <button id="cancel_btn">
-  //         <Link to={"/login"}>
-  //           <img src={cancelIcon} />
-  //         </Link>
-  //       </button>
-
-  //       <div className="main_container">
-  //         <input
-  //           id="title_text"
-  //           type="text"
-  //           placeholder="A VERY LOOOOOOOOOOOOONG TITLE"
-  //           value={title}
-  //           onChange={(e) => setTitle(e.target.value)}
-  //           required
-  //         />
-
-  //         <div className="upload_section">
-  //           <div className="thumbnail_side">
-  //             <h3 class="upload_headings">THUMBNAIL</h3>
-
-  //             <input
-  //               id="thumbnail_upload"
-  //               type="file"
-  //               accept="image/*"
-  //               onChange={handleThumbnailChange}
-  //               required
-  //             />
-
-  //             {selectedThumbnailURL ? (
-  //               <div>
-  //                 <img
-  //                   src={selectedThumbnailURL}
-  //                   // className="upload_logos"
-  //                   alt="Thumbnail"
-  //                   style={{
-  //                     maxWidth: "300px",
-  //                     maxHeight: "200px",
-  //                     overflow: "hidden",
-  //                     borderRadius: "15px",
-  //                     paddingBottom: "15px",
-  //                   }}
-  //                 />
-  //               </div>
-  //             ) : (
-  //               <img
-  //                 className="upload_logos"
-  //                 src={thumbnailIMG}
-  //                 alt="Thumbnail Placeholder"
-  //               />
-  //             )}
-
-  //             <p class="upload_supply_text">
-  //               Drag and drop an image, or{" "}
-  //               {/* <label for="thumbnail_upload">Browse</label> */}
-  //             </p>
-
-  //             <p class="upload_supply_text">
-  //               Minimum 1600px width recommended. Max 1GB each
-  //             </p>
-
-  //             <p class="upload_supply_text">High resolution 3D (obj, srt)</p>
-  //           </div>
-
-  //           <div className="model_side">
-  //             <h3 class="upload_headings">3D MODEL</h3>
-
-  //             <input
-  //               id="model_upload"
-  //               type="file"
-  //               onChange={handleFileChange}
-  //               required
-  //             />
-
-  //             {selectedModelURL ? (
-  //               <div>
-  //                 <img
-  //                   src={selectedModelURL}
-  //                   alt="Model"
-  //                   style={{
-  //                     maxWidth: "300px",
-  //                     maxHeight: "200px",
-  //                     overflow: "hidden",
-  //                     borderRadius: "15px",
-  //                     paddingBottom: "20px",
-  //                   }}
-  //                 />
-  //               </div>
-  //             ) : (
-  //               <img
-  //                 className="upload_logos"
-  //                 src={model}
-  //                 alt="Model Placeholder"
-  //               />
-  //             )}
-
-  //             <p class="upload_supply_text">
-  //               Drag and drop an image, or{" "}
-  //               <label for="model_upload">Browse</label>
-  //             </p>
-  //             <p class="upload_supply_text">
-  //               Minimum 1600px width recommended. Max 10MB each
-  //             </p>
-  //             <p class="upload_supply_text">
-  //               High resolution images (png, jpg, gif)
-  //             </p>
-  //           </div>
-  //         </div>
-
-  //         <input
-  //           id="desc_text"
-  //           type="text"
-  //           placeholder="Description"
-  //           value={description}
-  //           onChange={(e) => setDescription(e.target.value)}
-  //         />
-  //       </div>
-  //       <button id="upload_btn" onClick={handleUpload}>
-  //         UPLOAD
-  //       </button>
-  //     </div>
-
-  //     <div className="nav" style={{}}>
-  //       {uploadComplete && (
-  //         <div style={{ color: "white" }}>
-  //           Upload completed! -
-  //           <Link
-  //             to={"/explore"}
-  //             style={{ textDecoration: "none", color: "white" }}
-  //           >
-  //             <h4>Check it out!!!</h4>
-  //           </Link>
-  //         </div>
-  //       )}
-  //     </div>
-
-  //     {/* {thumbnailURL && (
-  //       <div>
-  //         <img
-  //           src={thumbnailURL}
-  //           alt="Thumbnail"
-  //           style={{ maxWidth: "300px" }}
-  //         />
-  //       </div>
-  //     )} */}
-  //   </div>
-  // );
-
   return (
     <div className="post_wrapper">
     
@@ -305,9 +147,13 @@ const PostUpload = () => {
           {uploadStatus && (
             <div id="upload_progress_text">
               Upload Progress: {uploadProgress.toFixed(1)}%
-              <img src={user?.photoURL}/>
             </div>
           )}
+        </div>
+
+        <div class="post_mid_options">
+          <img id="post_site_logo" src={siteLogo}></img>
+          <h3 id="post_logo_text">INNOVATE 3D</h3>
         </div>
 
         {uploadComplete && (

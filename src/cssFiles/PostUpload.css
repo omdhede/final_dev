@@ -67,6 +67,28 @@
     font-family: gilroyBold;
 }
 
+.post_mid_options{
+    display: flex;
+    position: absolute;
+    left: 42%;
+    color: white;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#post_site_logo{
+    width: 4rem;
+    color: white;
+    cursor: pointer;
+}
+
+#post_logo_text{
+    font-family: gilroyBold;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
 #upload_completed_text{
     display: flex;
     font-size: 1.5rem;
