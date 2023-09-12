@@ -7,6 +7,7 @@ import ExplorePage from "./ExplorePage";
 import MainScreen from "./MainScreen";
 import ProfilePage from "./ProfilePage";
 import ForgotPassword from "./ForgetPassword";
+import EditProfile from "./EditProfile";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const App = () => {
     {
       path: "/profile",
       element: <ProfilePage />,
+    },
+    {
+      path: "/profile/edit%profile",
+      element: <EditProfile />,
     },
   ]);
   return (

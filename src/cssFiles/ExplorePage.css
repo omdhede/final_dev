@@ -185,7 +185,7 @@
     bottom: 0px;
     z-index: -1;
     transform: scaleX(0);
-    transform-origin: left;
+    transform-origin: center;
     transition: all 0.5s;
   }
 #explore_share_btn:hover::before {
@@ -220,7 +220,7 @@
     bottom: 0px;
     z-index: -1;
     transform: scaleX(0);
-    transform-origin: left;
+    transform-origin: center;
     transition: all 0.5s;
   }
 #explore_logout_btn:hover::before {

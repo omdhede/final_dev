@@ -12,8 +12,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { PiBellRingingBold } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
 
-import trial_prof_pic from "./assets/GlobalAssets/trial_prof_pic.png";
-
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 

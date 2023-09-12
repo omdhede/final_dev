@@ -232,7 +232,7 @@ const MainScreen = () => {
                   <p id="mainscreen_desc_text">{data?.descriptionUrl}</p>
                 </div>
               </div>
-            </div>
+            </div>[]
           </div>
         </div>
       </div>

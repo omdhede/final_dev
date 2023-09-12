@@ -171,7 +171,7 @@ const PostUpload = () => {
 
       <div class="content_container">
         <button id="cancel_btn">
-          <Link to={"/login"}>
+          <Link to={"/explore"}>
             <img src={cancelIcon} />
           </Link>
         </button>
