@@ -122,11 +122,11 @@ const MainScreen = () => {
       modelRef.current = model;
       scene.add(model);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
       scene.add(ambientLight);
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
-      directionalLight.position.set(0, 10, 5);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(0, 10, 2);
       scene.add(directionalLight);
 
       camera.position.z = 10;
@@ -229,10 +229,10 @@ const MainScreen = () => {
                 <h3 id="mainscreen_desc_head">Description :</h3>
 
                 <div id="mainscreen_desc_text_layout">
-                  <p id="mainscreen_desc_text">{data?.descriptionUrl}</p>
+                  <p id="mainscreen_desc_text">{data?.text}</p>
                 </div>
               </div>
-            </div>[]
+            </div>
           </div>
         </div>
       </div>

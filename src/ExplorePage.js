@@ -21,6 +21,7 @@ const ExplorePage = () => {
   const [allUrls, setAllUrls] = useState([]);
   const [parentFolderNames, setParentFolderNames] = useState([]);
   const [selectedFileUrl, setSelectedFileUrl] = useState(null);
+  const [map, setMap] = useState({});
   //   const user = firebase.auth().currentUser;
   //   const uid = user.uid;
 
@@ -45,6 +46,7 @@ const ExplorePage = () => {
       }
       try {
         const urls = [];
+        const newMap = {};
         const names = [];
         const listRef = ref(storage, `${user.uid}/posts`);
         const postFolders = await listAll(listRef);
@@ -60,10 +62,12 @@ const ExplorePage = () => {
               const folderName = folderRef.name.split("/").pop();
               names.push(folderName);
               console.log(folderName);
+              newMap[folderName] = url;
               return url;
             }
           })
         );
+        setMap(newMap);
         setAllUrls(all);
         setParentFolderNames(names);
       } catch (error) {
@@ -101,7 +105,7 @@ const ExplorePage = () => {
             <button id="blog_btn">Blogs</button>
             <button id="learn_btn">Learn Design</button>
             <div class="dropdown">
-              <button id="categories_btn" >
+              <button id="categories_btn">
                 Categories <IoIosArrowDown />
               </button>
               <div class="dropdown-container">
@@ -160,10 +164,10 @@ const ExplorePage = () => {
 
       <div className="explore_section">
         <div className="explore_model_showcase">
-          {allUrls.map((url, index) => {
-            const folderName = parentFolderNames[index];
+          {parentFolderNames.map((folderName, index) => {
+            const url = map[folderName];
             return (
-              <div key={url}>
+              <div key={index}>
                 <div className="explore_model_card">
                   <Link to={`/main/${folderName}`}>
                     <img
