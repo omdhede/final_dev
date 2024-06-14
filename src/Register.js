@@ -3,13 +3,13 @@ import firebase from "firebase/compat/app";
 import { useNavigate, Link } from "react-router-dom";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDVyUhbLUu0JZ2S5dRVWZb4_uT7dVblm9I",
-  authDomain: "login-register-app-be826.firebaseapp.com",
-  databaseURL: "https://login-register-app-be826-default-rtdb.firebaseio.com",
-  projectId: "login-register-app-be826",
-  storageBucket: "login-register-app-be826.appspot.com",
-  messagingSenderId: "97352693655",
-  appId: "1:97352693655:web:1a415045b8cf1c5fd4b6d2",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_IRL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
